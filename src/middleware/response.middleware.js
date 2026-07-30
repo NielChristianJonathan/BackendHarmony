@@ -1,5 +1,5 @@
 const responseMiddleware = (req, res, next) => {
-    const send = ({status, succes,  message, data = null, errors = null}) => {
+    const send = ({status, success,  message, data = null, errors = null}) => {
         res.status(status).json({success, data, message, errors})
     }
 
@@ -14,6 +14,7 @@ const responseMiddleware = (req, res, next) => {
     res.error = (status, message, errors = null) => {
         return send({status, success: false, message, errors})
     }
+    next();
 }
 
 module.exports = {responseMiddleware}
