@@ -2,7 +2,6 @@ const { AppError } = require("../utils/appError")
 
 const errorMiddleware = (err, req, res, next) => {
     if (err instanceof AppError) {
-        console.log(err)
         return res.error(err.statusCode, err.message, err.errors)
     }
     console.log(err)

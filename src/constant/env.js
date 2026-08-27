@@ -1,3 +1,5 @@
 module.exports = {
     CONNECTION_STRING: process.env.CONNECTION_STRING,
+    ACCESS_SECRET_TOKEN: process.env.ACCESS_SECRET_TOKEN,
+    REFRESH_SECRET_TOKEN: process.env.REFRESH_SECRET_TOKEN
 }

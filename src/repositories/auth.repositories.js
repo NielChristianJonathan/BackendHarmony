@@ -1,5 +1,5 @@
 const { poolPg } = require("../config/supabase");
-const { INTERNAL_SERVER_ERROR } = require("../constant/status");
+const { INTERNAL_SERVER_ERROR, BAD_REQUEST } = require("../constant/status");
 const { AppError } = require("../utils/appError");
 const { asyncHandler } = require("../utils/asyncHandler");
 
@@ -25,8 +25,25 @@ const cekUsername = async({username}) => {
         );
         return result;
     } catch (error) {
+        console.log(error)
         throw new AppError("Failed Database", INTERNAL_SERVER_ERROR)
     }
 }
 
-module.exports = { register, cekUsername }
+const getUsers = async({username}) => {
+    try {
+        console.log(username)
+        const result = await poolPg.query(`
+            select * from users where username = $1
+            `, [username]
+        )
+        if (result.rows[0]) {
+            return result.rows[0]
+        }
+        throw new AppError("Username tidak ditemukan", BAD_REQUEST)
+    } catch (error) {
+        throw error
+    }
+}
+
+module.exports = { register, cekUsername, getUsers }

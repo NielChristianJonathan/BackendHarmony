@@ -2,6 +2,8 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const authRouter = require("./src/routes/auth.routes");
+const playlistRouter = require("./src/routes/playlists.routes");
+const songRouter = require("./src/routes/songs.routes");
 const { responseMiddleware } = require("./src/middleware/response.middleware");
 const { errorMiddleware } = require("./src/middleware/error.middleware");
 
@@ -17,6 +19,8 @@ app.use(responseMiddleware);
 
 // Routing
 app.use("/api/auth", authRouter)
+app.use("/api/playlists", playlistRouter)
+app.use("/api/songs", songRouter)
 
 // Error Middleware
 app.use(errorMiddleware);
