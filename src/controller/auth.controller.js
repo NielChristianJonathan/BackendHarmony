@@ -1,5 +1,6 @@
 const { registerService, loginService } = require("../services/auth.service");
 const { asyncHandler } = require("../utils/asyncHandler");
+const { generateAccessToken } = require("../utils/jwt");
 
 
 const registerController = asyncHandler(async (req, res) => {
@@ -22,4 +23,10 @@ const loginController = asyncHandler( async (req, res) => {
     })
     res.ok("Berhasil Login", {accessToken})
 })
-module.exports = {registerController, loginController}
+
+const getAccessToken = asyncHandler( async (req, res) => {
+    const {username, id} = req.user;
+    const accessToken = generateAccessToken({id, username});
+    res.ok("Berhasil Login", {accessToken})
+})
+module.exports = {registerController, loginController, getAccessToken}

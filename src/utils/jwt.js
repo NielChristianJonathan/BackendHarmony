@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { ACCESS_SECRET_TOKEN, REFRESH_SECRET_TOKEN } = require("../constant/env");
+const { AppError } = require("./appError");
+const { FORBIDDEN, UNAUTHORIZED } = require("../constant/status");
 
 
 const generateAccessToken = ({id, username}) => {
@@ -27,4 +29,20 @@ const generateRefreshToken = ({id, username}) => {
         }
     )
 }
-module.exports = { generateAccessToken, generateRefreshToken }
+
+const verifyAccesToken = ({accessToken}) => {
+    try {
+        return jwt.verify(accessToken, ACCESS_SECRET_TOKEN)
+    } catch (error) {
+        throw new AppError("Unauthorized", UNAUTHORIZED)
+    }
+}
+
+const verifyRefreshToken = ({refreshToken}) => {
+    try {
+        return jwt.verify(refreshToken, REFRESH_SECRET_TOKEN)
+    } catch (error) {
+        throw new AppError("Tidak ada session", FORBIDDEN)
+    }
+}
+module.exports = { generateAccessToken, generateRefreshToken, verifyAccesToken, verifyRefreshToken }

@@ -1,9 +1,22 @@
+const { UNAUTHORIZED } = require("../constant/status");
+const { AppError } = require("../utils/appError");
+const { verifyAccesToken } = require("../utils/jwt");
+
 const ValidationAccessToken = (req, res, next) => {
     try {
-        console.log("Masuk sini oiii")
+        
+        const authHeader = req.headers.authorization;
+    
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            throw new AppError("Unauthorized", UNAUTHORIZED)
+        }
+        const accessToken = authHeader.split(" ")[1];
+
+        verifyAccesToken({accessToken})
         next()
     } catch (error) {
         throw error
+        
     }
 }
 

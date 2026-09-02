@@ -6,6 +6,7 @@ const playlistRouter = require("./src/routes/playlists.routes");
 const songRouter = require("./src/routes/songs.routes");
 const { responseMiddleware } = require("./src/middleware/response.middleware");
 const { errorMiddleware } = require("./src/middleware/error.middleware");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors({
     origin: "http://localhost:5173"
 }))
 app.use(express.json());
+app.use(cookieParser());
 app.use(responseMiddleware);
 
 // Routing
