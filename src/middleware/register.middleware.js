@@ -3,7 +3,6 @@ const { AppError } = require("../utils/appError");
 
 const registerMiddleware = (req, res, next) => {
     try {
-        console.log(req.body);
         const {username, password, checkPassword} = req.body;
         if (!username) throw new AppError("Masukan username", BAD_REQUEST)
         if (!password) throw new AppError("Masukan password", BAD_REQUEST)

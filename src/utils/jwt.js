@@ -32,8 +32,10 @@ const generateRefreshToken = ({id, username}) => {
 
 const verifyAccesToken = ({accessToken}) => {
     try {
+        console.log(jwt.decode(accessToken))
         return jwt.verify(accessToken, ACCESS_SECRET_TOKEN)
     } catch (error) {
+        console.log("Masuk sini :D")
         throw new AppError("Unauthorized", UNAUTHORIZED)
     }
 }

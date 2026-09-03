@@ -4,15 +4,14 @@ const { verifyAccesToken } = require("../utils/jwt");
 
 const ValidationAccessToken = (req, res, next) => {
     try {
-        
         const authHeader = req.headers.authorization;
-    
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            console.log("Masuk sini")
             throw new AppError("Unauthorized", UNAUTHORIZED)
         }
         const accessToken = authHeader.split(" ")[1];
-
-        verifyAccesToken({accessToken})
+        const result = verifyAccesToken({accessToken})
+        req.user = result;
         next()
     } catch (error) {
         throw error
