@@ -1,10 +1,11 @@
-const { uploadMetadata } = require("../../repositories/music.repositories")
+const { uploadMetadata } = require("../../repositories/music.repositories");
+const { GetPresignedURL } = require("../../utils/r2Song");
 
-const UploadSongService = async ({username, id, judul, composer, genre, metadata}) => {
+const UploadSongService = async ({id, judul, composer, genre, metadata}) => {
     try {
         const idSong = await uploadMetadata({user_id: id, name: judul, genre, composer, metadata})
-        console.log(idSong);
-        return metadata
+        const presignedurl = await GetPresignedURL({id: idSong.id, name: judul, contentType: metadata.fileType});
+        return {idSong:idSong.id, presignedurl, name:judul}
     } catch (error) {
         throw error    
     }

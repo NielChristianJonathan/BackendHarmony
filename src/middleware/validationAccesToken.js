@@ -6,7 +6,6 @@ const ValidationAccessToken = (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            console.log("Masuk sini")
             throw new AppError("Unauthorized", UNAUTHORIZED)
         }
         const accessToken = authHeader.split(" ")[1];

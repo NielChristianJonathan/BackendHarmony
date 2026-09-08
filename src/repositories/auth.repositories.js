@@ -5,7 +5,6 @@ const { asyncHandler } = require("../utils/asyncHandler");
 
 const register = async({username, password}) => {
     try {
-        console.log(username, password)
         await poolPg.query(`
             INSERT INTO users (username, password)
             VALUES ($1, $2)
@@ -32,7 +31,6 @@ const cekUsername = async({username}) => {
 
 const getUsers = async({username}) => {
     try {
-        console.log(username)
         const result = await poolPg.query(`
             select * from users where username = $1
             `, [username]

@@ -10,4 +10,4 @@ const S3 = new S3Client({
     }
 });
 
-export default S3;
+module.exports =  {S3};
