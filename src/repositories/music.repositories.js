@@ -1,13 +1,13 @@
 const { poolPg } = require("../config/supabase")
 const { INTERNAL_SERVER_ERROR, BAD_REQUEST } = require("../constant/status")
 const { AppError } = require("../utils/appError")
-const uploadMetadata = async ({user_id, name, genre, composer, metadata,}) => {
+const uploadMetadata = async ({user_id, name, genre, composer, metadata, nameR2}) => {
     try {
         const idSong = await poolPg.query(`
-            insert into songs (user_id, name, genre, composer, duration, file_name, file_size, file_type, status)
-            values ($1, $2, $3, $4, $5, $6, $7, $8, 'uploading')
+            insert into songs (user_id, name, genre, composer, duration, file_name, file_size, file_type, status, name_r2)
+            values ($1, $2, $3, $4, $5, $6, $7, $8, 'uploading', $9)
             returning id
-            `, [user_id, name, genre, composer, metadata.fileDuration,metadata.fileName, metadata.fileSize, metadata.fileType])
+            `, [user_id, name, genre, composer, metadata.fileDuration,metadata.fileName, metadata.fileSize, metadata.fileType, nameR2])
         
         return idSong.rows[0]
     } catch (error) {

@@ -9,6 +9,8 @@ const musikUploadMiddleware = (req, res, next) => {
         if (!composer.trim()) throw new AppError("Mohon Masukkan Composer Lagu", BAD_REQUEST);
         if (!genre.trim()) throw new AppError("Mohon Masukkan Genre Lagu", BAD_REQUEST);
         if (!Object.values(CONTENT_TYPE).includes(metadata.fileType)) throw new AppError("Tipe file tidak diterima", BAD_REQUEST)
+        const nameR2 = judul.replaceAll(" ", "_");
+        req.nameR2 = nameR2
         next()
     } catch (error) {
         throw error

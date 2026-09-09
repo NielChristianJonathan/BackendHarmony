@@ -9,14 +9,15 @@ const getSongs = asyncHandler(async (req, res) => {
 const uploadSongController = asyncHandler(async (req, res) => {
     const {id} = req.user;
     const {judul, composer, genre, metadata} = req.body;
-    const result = await UploadSongService({ id, judul, composer, genre, metadata});
+    const {nameR2} = req;
+    const result = await UploadSongService({ id, judul, composer, genre, metadata, nameR2});
     return res.ok("Success", result);  
 })
 
 const updateSongController = asyncHandler(async (req, res) => {
-    const {idSong, name, metadata} = req.body;
+    const {idSong, nameR2, metadata} = req.body;
     const {fileType} = metadata;
-    const result = await updateSongService({idSong, name, fileType})
+    const result = await updateSongService({idSong, nameR2, fileType})
     console.log("MASUK SINI");
     res.ok("berhasil", result);
 })
