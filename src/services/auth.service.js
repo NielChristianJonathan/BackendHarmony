@@ -20,16 +20,15 @@ const registerService = async ({username, password}) => {
 const loginService = async ({username, password}) => {
     try {
         const users = await getUsers({username});
-        console.log(users);
         const checkPass = await bcrypt.compare(password, users.password);
         if (!checkPass) {
             throw new AppError("Password Salah", BAD_REQUEST)
         }
-        
+        const userId = users.id
         const accessToken = generateAccessToken({username: users.username, id: users.id});
         const refreshToken = generateRefreshToken({username: users.username, id: users.id});
         
-        return {accessToken, refreshToken} 
+        return {accessToken, refreshToken, userId} 
     } catch (error) {
         throw error
     }

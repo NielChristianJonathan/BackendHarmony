@@ -11,6 +11,7 @@ const ValidationAccessToken = (req, res, next) => {
         const accessToken = authHeader.split(" ")[1];
         const result = verifyAccesToken({accessToken})
         req.user = result;
+        
         next()
     } catch (error) {
         throw error

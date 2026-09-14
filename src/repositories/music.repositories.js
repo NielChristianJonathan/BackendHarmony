@@ -31,4 +31,16 @@ const updateStatusMusic = async ({idSong, songURL}) => {
     }
 }
 
-module.exports = { uploadMetadata, updateStatusMusic }
+const getSongs = async() => {
+    try {
+        const songs = await poolPg.query(`
+            select * from songs limit 10
+            `
+        )
+        return songs.rows
+        
+    } catch (error) {
+        throw new AppError("Failed Database", 500)
+    }
+}
+module.exports = { uploadMetadata, updateStatusMusic, getSongs }

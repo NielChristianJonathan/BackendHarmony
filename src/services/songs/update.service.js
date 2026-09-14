@@ -5,7 +5,8 @@ const updateSongService = async ({idSong, nameR2, fileType})  => {
     try {
         const songURL = getSongUrl({idSong, nameR2, fileType});
         await updateStatusMusic({idSong, songURL})
-        return null
+        
+        return {songURL}
     } catch (error) {
         throw error
     }
