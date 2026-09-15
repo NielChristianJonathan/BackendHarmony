@@ -1,4 +1,4 @@
-const { getSongs } = require("../../repositories/music.repositories")
+const { getSongs, getMySongs } = require("../../repositories/music.repositories")
 
 const getSongsService = async() => {
     try {
@@ -11,8 +11,9 @@ const getSongsService = async() => {
 
 const getMySongService = async({userid, page, limit}) => {
     try {
-        
-        return null
+        const offset = (page-1) * limit
+        const mySongs = await getMySongs({limit, offset, userid})        
+        return {mySongs}
     } catch (error) {
         throw error
     }

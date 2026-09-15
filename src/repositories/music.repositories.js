@@ -43,4 +43,23 @@ const getSongs = async() => {
         throw new AppError("Failed Database", 500)
     }
 }
-module.exports = { uploadMetadata, updateStatusMusic, getSongs }
+
+const getMySongs = async({limit, offset, userid}) => {
+    try {        
+        const result = await poolPg.query(`
+            select * from songs 
+            where user_id = $1
+            order by created_at
+            limit $2 offset $3
+            `, [userid, limit, offset]
+        )
+        
+        return result.rows
+        
+    } catch (error) {
+        console.log((error));
+        
+        throw new AppError("Failed Database", 500)
+    }
+}
+module.exports = { uploadMetadata, updateStatusMusic, getSongs, getMySongs }

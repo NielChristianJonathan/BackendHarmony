@@ -30,7 +30,6 @@ const getMySongController = asyncHandler(async (req, res) => {
     const {userid} = req.headers;
     const {page, limit} = req.query;
     const result = await getMySongService({page, limit, userid})
-    
     res.ok("Berhasil", result)
 })
 
