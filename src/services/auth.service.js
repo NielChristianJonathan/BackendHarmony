@@ -26,6 +26,8 @@ const loginService = async ({username, password}) => {
         }
         const userId = users.id
         const accessToken = generateAccessToken({username: users.username, id: users.id});
+        console.log(accessToken);
+        
         const refreshToken = generateRefreshToken({username: users.username, id: users.id});
         
         return {accessToken, refreshToken, userId} 
